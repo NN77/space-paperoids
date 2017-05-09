@@ -1,0 +1,25 @@
+{
+  "name": "space-paperoids",
+  "version": "0.0.1",
+  "description": "A simple side scroller shoot’em up game built with PixiJS and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --port 9001 --inline --progress --profile --colors --watch --content-base src/",
+    "build": "webpack --config webpack.config.js",
+    "build.prod": "webpack --config webpack.config.js -p"
+  },
+  "author": "Hubert Gudan",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "7.0.0",
+    "awesome-typescript-loader": "3.0.0-beta.18",
+    "jasmine-core": "2.5.2",
+    "source-map-loader": "0.1.6",
+    "tslint": "4.3.1",
+    "tslint-loader": "3.3.0",
+    "typescript": "2.1.5",
+    "webpack": "2.2.1",
+    "webpack-dev-server": "2.2.1"
+  }
+}
+
