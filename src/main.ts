@@ -1,4 +1,3 @@
-import { Hello } from './hello';
+import App from './app/app';
 
-const s = new Hello('Hubert');
-s.hello();
+App.start();
