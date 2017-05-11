@@ -20,8 +20,11 @@ export default class SplashscreenScene extends Scene {
     this.ticker.start();
   }
 
-  // reduce alpha channel of bitmap
-  // every frame after the given time period
+  /**
+   * Reduce alpha channel of bitmap
+   * every frame after the given time period
+   * @param deltaTime
+   */
   protected updateFrame(deltaTime: number): void {
     console.log('splash tickerrrrr........');
     const _fadeOutTimeMS = SplashscreenScene.fadeOutTimeMS;
@@ -30,10 +33,18 @@ export default class SplashscreenScene extends Scene {
     this.timeElapsed(_fadeOutTimeMS) ? this.reduceAlphaChannel() : _timeUpdated;
   }
 
+  /**
+   * Check if x miliseconds have elapsed
+   * @param timeMS
+   */
   private timeElapsed(timeMS: number) {
     return this.timeStartMS + this.ticker.elapsedMS > timeMS;
   }
 
+  /**
+   * Reduce alpha channel of container and navigate to
+   * next given scene if current faded to black
+   */
   private reduceAlphaChannel() {
     this.splashscreen.alpha -= 0.025;
     if (this.splashscreen.alpha <= 0) {

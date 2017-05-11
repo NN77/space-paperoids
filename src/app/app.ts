@@ -4,11 +4,13 @@ import Scene from '../scenes/_scene.abstract';
 import SplashscreenScene from '../scenes/splashscreen.scene';
 import MenuScene from '../scenes/menu.scene';
 import GameScene from '../scenes/game.scene';
+import KeyboardUtil from '../utils/keyboard';
 
 export default class App {
   public static gameApp: PIXI.Application;
   private static gameScenes: any;
   public static current: Scene = new SplashscreenScene('splashscreen');
+  public static keyboard: KeyboardUtil;
 
   constructor() {}
 
@@ -30,6 +32,10 @@ export default class App {
     App.gameApp.stage.addChild(App.gameScenes.splashscreen.container);
   }
 
+  /**
+   * Sets up new current scene
+   * @param sceneName
+   */
   public static async goToScene(sceneName: string) {
     // Remove current scene container from the root
     // display container that's rendered

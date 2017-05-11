@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import Scene from './_scene.abstract';
 import App from '../app/app';
-import Button from '../components/button';
+import Button from '../components/button.component';
 
 export default class MenuScene extends Scene {
   static gameScene = 'game';
@@ -43,8 +43,6 @@ export default class MenuScene extends Scene {
   }
 
   private startGame() {
-    // this.ticker.stop();
-    console.log('klik :)');
     App.goToScene(MenuScene.gameScene);
   }
 
