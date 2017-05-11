@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 import Scene from './_scene.abstract';
 import App from '../app/app';
 
-export class SplashscreenScene extends Scene {
+export default class SplashscreenScene extends Scene {
   static fadeOutTimeMS = 2000;
   static nextScene = 'menu';
 
@@ -23,6 +23,7 @@ export class SplashscreenScene extends Scene {
   // reduce alpha channel of bitmap
   // every frame after the given time period
   protected updateFrame(deltaTime: number): void {
+    console.log('splash tickerrrrr........');
     const _fadeOutTimeMS = SplashscreenScene.fadeOutTimeMS;
     const _timeUpdated = this.timeStartMS += this.ticker.elapsedMS;
 
@@ -36,6 +37,7 @@ export class SplashscreenScene extends Scene {
   private reduceAlphaChannel() {
     this.splashscreen.alpha -= 0.025;
     if (this.splashscreen.alpha <= 0) {
+      this.ticker.stop();
       App.goToScene(SplashscreenScene.nextScene);
     }
   }
