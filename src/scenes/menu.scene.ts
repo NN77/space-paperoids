@@ -24,8 +24,8 @@ export default class MenuScene extends Scene {
     this.registerChild(new PIXI.Sprite(logo), 240, 10);
 
     const game = PIXI.Texture.fromImage(MenuScene.gameTexture);
-    this.registerChild(new Button(game, 'START', this.startGame,
-      {fontSize: 80, dropShadow: true, dropShadowAngle: Math.PI / 180, rotation: -0.1, posX: 65, posY: 90}), 240, 150);
+    this.registerChild(new Button(game, 'GAME', this.startGame,
+      {fontSize: 80, dropShadow: true, dropShadowAngle: Math.PI / 180, rotation: -0.1, posX: 75, posY: 90}), 240, 150);
 
     const exit = PIXI.Texture.fromImage(MenuScene.exitTexture);
     this.registerChild(new Button(exit, 'EXIT', this.exit,
