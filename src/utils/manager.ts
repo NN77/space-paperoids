@@ -10,6 +10,20 @@ export default class Manager {
     this.entities = [];
   }
 
+  public entityFilter(allowedPartials: string[]) {
+    return this.entities.filter(entity => {
+      let properPartial = 0;
+      allowedPartials.map(key => {
+        if (entity.partials[key]) {
+          properPartial++;
+        }
+      });
+      if (properPartial === allowedPartials.length) {
+        return true;
+      }
+    });
+  }
+
   public addEntity(component: Component) {
     this.entities.push(component);
   }
@@ -20,8 +34,8 @@ export default class Manager {
   }
 
   public updateFrame(deltaTime: number) {
-    for (let engine of this.engines) {
+    this.engines.map(engine => {
       engine.updateFrame(deltaTime);
-    }
+    });
   }
 }

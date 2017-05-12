@@ -6,6 +6,10 @@ import Entity from '../utils/entity';
 import DisplayEngine from '../engines/display.engine';
 import KeyboardEngine from '../engines/keybord.engine';
 import MoveEngine from '../engines/move.engine';
+import ShootEngine from '../engines/shoot.engine';
+import ScreenEngine from '../engines/screen';
+import PaperoidEngine from '../engines/paperoid.engine';
+import RandomMoveEngine from '../engines/random.system';
 
 export default class GameScene extends Scene {
   static gameTextureAsset = 'assets/game-bg.png';
@@ -15,6 +19,7 @@ export default class GameScene extends Scene {
   private earth: PIXI.extras.TilingSprite;
   private manager: Manager;
   private entity: Entity;
+  private paperoidsCounter = 0;
   public static keybordKeys: boolean[];
 
   constructor(sceneName: string) {
@@ -34,15 +39,21 @@ export default class GameScene extends Scene {
     this.manager = new Manager();
     this.entity = new Entity(this.manager, this.container);
 
-    // Setup array of empty keyboard keys
+    // Setup array of empty keyboard keys and paperoid
     GameScene.keybordKeys = [];
-
+    this.paperoidsCounter = 0;
     // Engines
     this.manager.addEngine(new DisplayEngine());
     this.manager.addEngine(new KeyboardEngine(GameScene.keybordKeys));
     this.manager.addEngine(new MoveEngine());
+    this.manager.addEngine(new ShootEngine(this.entity));
+    this.manager.addEngine(new ScreenEngine());
+    this.manager.addEngine(new PaperoidEngine(this.entity, 120));
+    this.manager.addEngine(new RandomMoveEngine());
+    // TODO collision and explode engine
 
     this.entity.registerPlayer();
+    this.entity.registerPaperoid();
 
     this.container.alpha = 0;
     this.ticker.add(this.updateFrame, this);

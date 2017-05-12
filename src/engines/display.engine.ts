@@ -6,15 +6,11 @@ export default class DisplayEngine extends Engine {
   }
 
   public updateFrame(deltaTime: number): void {
-    const entities = this.manager.entities;
+    const entities = this.manager.entityFilter(['display', 'position']);
 
-    for (let entity of entities) {
-      // if (entity.id === 10) {
-      //   console.log(entity.partials.display.container.position.x);
-      //   console.log(entity.partials.position.x);
-      // }
+    entities.map(entity => {
       entity.partials.display.container.position.x = entity.partials.position.x;
       entity.partials.display.container.position.y = entity.partials.position.y;
-    }
+    });
   }
 }

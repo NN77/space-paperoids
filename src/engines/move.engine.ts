@@ -7,14 +7,14 @@ export default class MoveEngine extends Engine {
   }
 
   updateFrame(deltaTime: number) {
-    const entities = this.manager.entities;
+    const entities = this.manager.entityFilter(['position', 'speed']);
 
-    for (let entity of entities) {
+    entities.map(entity => {
       Math.addVector(
         entity.partials.position,
         entity.partials.position,
         entity.partials.speed,
       );
-    }
+    });
   }
 }

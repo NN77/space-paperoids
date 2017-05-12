@@ -22,33 +22,25 @@ export default class KeyboardEngine extends Engine {
   }
 
   updateFrame(deltaTime: number) {
-    const canShoot = this.manager.entities;
-    const canMove = this.manager.entities;
+    const canShoot = this.manager.entityFilter(['move', 'speed']);
+    const canMove = this.manager.entityFilter(['move', 'speed']);
 
     // Movement
-    for (let entity of canMove) {
-      if (this.keyboardKeys[68]) {
-        this.move(entity, 'right');
-      }
-
-      if (this.keyboardKeys[83]) {
-        this.move(entity, 'down');
-      }
-
-      if (this.keyboardKeys[65]) {
-        this.move(entity, 'left');
-      }
-
-      if (this.keyboardKeys[87]) {
-        this.move(entity, 'up');
-      }
-    }
+    canMove.map(entity => {
+      if (this.keyboardKeys[68]) { this.move(entity, 'right'); }
+      if (this.keyboardKeys[83]) { this.move(entity, 'down'); }
+      if (this.keyboardKeys[65]) { this.move(entity, 'left'); }
+      if (this.keyboardKeys[87]) { this.move(entity, 'up'); }
+    });
 
     // Shoot
-    // for (let entity of canShoot) {
-    //   if (this.keyboardKeys[32]) {
-    //
-    //   }
+    canShoot.map(entity => {
+      if (this.keyboardKeys[32]) {
+        if (entity.partials.shoot.cooldownCounter <= 0) {
+          entity.partials.shoot.isShooting = true;
+        }
+      }
+    });
   }
 
   move(entity: Component, direction: string) {
