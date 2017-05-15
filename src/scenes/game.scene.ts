@@ -7,9 +7,10 @@ import DisplayEngine from '../engines/display.engine';
 import KeyboardEngine from '../engines/keybord.engine';
 import MoveEngine from '../engines/move.engine';
 import ShootEngine from '../engines/shoot.engine';
-import ScreenEngine from '../engines/screen';
+import ScreenEngine from '../engines/screen.engine';
 import PaperoidEngine from '../engines/paperoid.engine';
-import RandomMoveEngine from '../engines/random.system';
+import RandomMoveEngine from '../engines/random.engine';
+import DestroyEngine from '../engines/destroy.engine';
 
 export default class GameScene extends Scene {
   static gameTextureAsset = 'assets/game-bg.png';
@@ -50,6 +51,7 @@ export default class GameScene extends Scene {
     this.manager.addEngine(new ScreenEngine());
     this.manager.addEngine(new PaperoidEngine(this.entity, 120));
     this.manager.addEngine(new RandomMoveEngine());
+    this.manager.addEngine(new DestroyEngine());
     // TODO collision and explode engine
 
     this.entity.registerPlayer();
@@ -81,6 +83,5 @@ export default class GameScene extends Scene {
 
   public static onKeyUp(event: KeyboardEvent): void {
     delete GameScene.keybordKeys[event.keyCode];
-    event.preventDefault();
   };
 }

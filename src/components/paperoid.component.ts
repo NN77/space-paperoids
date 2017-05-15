@@ -5,6 +5,7 @@ import DisplayPartial from './partials/display.partial';
 import PositionPartial from './partials/position.partial';
 import SpeedPartial from './partials/speed.partial';
 import RandomMovePartial from './partials/random.partial';
+import DestroyPartial from './partials/destroy.partial';
 
 export default class PaperoidComponent extends Component {
   constructor(container: PIXI.Container) {
@@ -18,6 +19,7 @@ export default class PaperoidComponent extends Component {
     this.addPartial(new PositionPartial(800, Math.round(Math.random() * 600)));
     this.addPartial(new SpeedPartial(0, 0));
     this.addPartial(new RandomMovePartial());
+    this.addPartial(new DestroyPartial());
     // TODO collision, explosive
   }
 }

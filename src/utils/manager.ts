@@ -28,6 +28,11 @@ export default class Manager {
     this.entities.push(component);
   }
 
+  public removeEntity(component: Component) {
+    component.partials.display.container.destroy();
+    this.entities = this.entities.filter(entity => entity.id !== component.id);
+  }
+
   public addEngine(engine: Engine) {
     engine.add(this);
     this.engines.push(engine);
