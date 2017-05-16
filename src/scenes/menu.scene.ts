@@ -8,6 +8,7 @@ export default class MenuScene extends Scene {
   static gameScene = 'game';
   static exitLink = 'http://pixijs.download/dev/docs/index.html';
   static logoTexture = 'assets/menu-logo.png';
+  static wasdTexture = 'assets/menu-wasd.png';
   static gameTexture = 'assets/menu-game.png';
   static exitTexture = 'assets/menu-exit.png';
 
@@ -30,6 +31,9 @@ export default class MenuScene extends Scene {
     const exit = PIXI.Texture.fromImage(MenuScene.exitTexture);
     this.registerChild(new Button(exit, 'EXIT', this.exit,
       {fontSize: 40, dropShadow: true, dropShadowAngle: Math.PI / 180, rotation: 0.1, posX: 40, posY: 37}), 320, 440);
+
+    const wasd = PIXI.Texture.fromImage(MenuScene.wasdTexture);
+    this.registerChild(new PIXI.Sprite(wasd), 10, 440);
 
     this.container.alpha = 0;
     this.ticker.add(this.updateFrame, this);

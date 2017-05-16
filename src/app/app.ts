@@ -1,16 +1,13 @@
 import * as PIXI from 'pixi.js';
 
 import Scene from '../scenes/_scene.abstract';
-import SplashscreenScene from '../scenes/splashscreen.scene';
-import MenuScene from '../scenes/menu.scene';
-import GameScene from '../scenes/game.scene';
-import KeyboardUtil from '../utils/keyboard';
+import SceneFactory from '../scenes/_scenes.factory';
 
 export default class App {
   public static gameApp: PIXI.Application;
-  private static gameScenes: any;
-  public static current: Scene = new SplashscreenScene('splashscreen');
-  public static keyboard: KeyboardUtil;
+  public static currentSceneName: string;
+  public static currentScene: Scene;
+  private static scenes: any;
 
   constructor() {}
 
@@ -19,34 +16,35 @@ export default class App {
     // with a fallback to a canvas render. It will also setup the ticker
     // and the root stage PIXI.Container.
     App.gameApp = new PIXI.Application(800, 600);
-    App.gameScenes = {
-      splashscreen: new SplashscreenScene('splashscreen'),
-      menu: new MenuScene('menu'),
-      game: new GameScene('game')
-    };
-    App.current = new SplashscreenScene('splashscreen');
+    App.scenes = {};
 
     // The application will create a canvas element that could be inserted into the DOM.
     document.getElementById('gameContainer').appendChild(App.gameApp.view);
 
-    App.gameApp.stage.addChild(App.gameScenes.splashscreen.container);
+    App.addScene('splashscreen');
   }
 
   /**
-   * Sets up new current scene
+   * Remove current scene container from the root
    * @param sceneName
    */
-  public static async goToScene(sceneName: string) {
-    // Remove current scene container from the root
-    // display container that's rendered
-    App.gameScenes[App.current.sceneName].ticker.stop();
-    App.gameApp.stage.removeChild(App.gameScenes[App.current.sceneName].container);
+  public static goToScene(sceneName: string) {
+    App.scenes[App.currentSceneName].ticker.stop();
+    App.gameApp.stage.removeChild(App.scenes[App.currentSceneName].container);
 
-    // Add new scene
-    App.gameApp.stage.addChild(App.gameScenes[sceneName].container);
-    App.gameScenes[sceneName].ticker.start();
+    delete App.scenes[App.currentSceneName];
+    App.addScene(sceneName);
+  }
 
-    // Set new current scene
-    App.current = App.gameScenes[sceneName];
+  /**
+   * Sets up new current scene display container that's rendered
+   * @param sceneName
+   */
+  public static addScene(newScene: string) {
+    this.currentScene = SceneFactory.create(newScene);
+    App.scenes[newScene] = this.currentScene;
+    App.currentSceneName = newScene;
+    App.gameApp.stage.addChild(App.scenes[newScene].container);
+    App.scenes[newScene].ticker.start();
   }
 }

@@ -1,5 +1,6 @@
 import Engine from '../engines/_engine.abstract';
 import Component from '../components/_component.abstract';
+import App from '../app/app';
 
 export default class Manager {
   entities: Component[];
@@ -36,6 +37,13 @@ export default class Manager {
   public addEngine(engine: Engine) {
     engine.add(this);
     this.engines.push(engine);
+  }
+
+  public resetGame(resetEngine: Engine) {
+    this.engines = this.engines.filter(engine => engine !== resetEngine);
+    setTimeout(() => {
+      App.goToScene('menu');
+    }, 2500);
   }
 
   public updateFrame(deltaTime: number) {

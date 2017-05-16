@@ -8,6 +8,7 @@ import SpeedPartial from './partials/speed.partial';
 import MovePartial from './partials/move.partial';
 import ShootPartial from './partials/shoot.partial';
 import ScreenPartial from './partials/screen.partial';
+import CollisionPartial from './partials/collision.partial';
 
 export default class PlayerComponent extends Component {
   constructor(container: PIXI.Container) {
@@ -18,11 +19,11 @@ export default class PlayerComponent extends Component {
 
     this.addPartial(new PlayerPartial());
     this.addPartial(new DisplayPartial(container, player));
-    this.addPartial(new PositionPartial(15, 15));
+    this.addPartial(new PositionPartial(15, 240));
     this.addPartial(new SpeedPartial(0, 0));
     this.addPartial(new MovePartial(0.4, 0.4));
     this.addPartial(new ShootPartial(20));
     this.addPartial(new ScreenPartial());
-    // TODO collision and explode
+    this.addPartial(new CollisionPartial(0));
   }
 }

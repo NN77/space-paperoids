@@ -11,6 +11,9 @@ import ScreenEngine from '../engines/screen.engine';
 import PaperoidEngine from '../engines/paperoid.engine';
 import RandomMoveEngine from '../engines/random.engine';
 import DestroyEngine from '../engines/destroy.engine';
+import CollisionEngine from '../engines/collision.engine';
+import FadeEngine from '../engines/fade.engine';
+import ResetEngine from '../engines/reset.engine';
 
 export default class GameScene extends Scene {
   static gameTextureAsset = 'assets/game-bg.png';
@@ -52,7 +55,9 @@ export default class GameScene extends Scene {
     this.manager.addEngine(new PaperoidEngine(this.entity, 120));
     this.manager.addEngine(new RandomMoveEngine());
     this.manager.addEngine(new DestroyEngine());
-    // TODO collision and explode engine
+    this.manager.addEngine(new CollisionEngine(this.entity));
+    this.manager.addEngine(new FadeEngine());
+    this.manager.addEngine(new ResetEngine(this.entity));
 
     this.entity.registerPlayer();
     this.entity.registerPaperoid();
@@ -76,12 +81,12 @@ export default class GameScene extends Scene {
   }
 
   public static onKeyDown(event: KeyboardEvent): void {
-    console.log(event.keyCode);
     GameScene.keybordKeys[event.keyCode] = true;
     event.preventDefault();
   };
 
   public static onKeyUp(event: KeyboardEvent): void {
     delete GameScene.keybordKeys[event.keyCode];
+    event.preventDefault();
   };
 }
